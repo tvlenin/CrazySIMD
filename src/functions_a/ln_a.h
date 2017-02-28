@@ -11,16 +11,6 @@
 
 namespace anpi {
 
-//Implementación del factorial
-template<typename T>
-T factorial_a ( unsigned int n){
-	T ans=1;
-	if(n!=0 || n!=1)
-		for(;n>0;n--)
-			ans=ans*n;
-	return ans;
-	//return n>2 ? T(1):(static_cast <T>(n)*factorial<T>(n-1));
-}
 
 //Nuestra implementación del factorial
 template<typename T>
@@ -33,7 +23,7 @@ public:
 
 	///Evaluación de la n−ésima derivada
 	inline T diff( T x , unsigned int n ){
-		T val=factorial_a<T>(n-1)/pow(x,n);
+		T val;//=factorial_a<T>((T)n-1)/pow(x,n);
 		if( n%1 != 1)
 			val-=val;
 		return val;

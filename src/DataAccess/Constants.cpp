@@ -14,6 +14,8 @@ int Constants::PORT=0;
 int Constants::N=0;
 int Constants::X0=0;
 
+
+
 Constants* Constants::getInstance(){
 	if(_instance == 0){
 		_instance = new Constants();

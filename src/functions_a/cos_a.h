@@ -8,8 +8,23 @@
 #ifndef FUNCTIONS_A_COS_A_H_
 #define FUNCTIONS_A_COS_A_H_
 
+#include "../ref.h"
+#include <iostream>
+#include "../DataAccess/Constants.h"
+
+using namespace std;
 namespace anpi {
 
+//Implementación del factorial
+template<typename T>
+T factorial_a ( T n){
+	T ans=1;
+	if(n!=0 || n!=1)
+		for(;n>0;n--)
+			ans=ans*n;
+	return ans;
+	//return n>2 ? T(1):(static_cast <T>(n)*factorial<T>(n-1));
+}
 
 template<typename T>
 class cos_a {
@@ -17,12 +32,15 @@ public:
 
 
 	inline T operator()(const T val)const{
+		cout<<"ok\n";
 		int size=Constants::N;
 		T x_0 = Constants::X0;
 		T coefficients[size];
 		for(int i=0;i<size;i++){
-			coefficients[i]=diff_cos_a(x_0,i)/factorial((T)i);
+			coefficients[i]=diff_cos_a(x_0,i)/factorial_a((T)i);
 		}
+		ref* reff = new ref();
+		std::cout<<reff->EstrinPol(coefficients,val,Constants::N)<<" \n";
 		return val;
 	}
 
