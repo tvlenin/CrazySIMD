@@ -16,5 +16,6 @@ ErrorFramework::ErrorFramework() {
 ErrorFramework::~ErrorFramework() {
 	// TODO Auto-generated constructor stub
 
-}
+
 } /* namespace anpi */
+}
