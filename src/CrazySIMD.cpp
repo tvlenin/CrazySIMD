@@ -7,9 +7,23 @@
 //============================================================================
 
 #include <iostream>
+#include "true_functions/ln.h"
+#include <math.h>
+#include <string>
+#include <chrono>
+
 using namespace std;
+using namespace anpi;
+
 
 int main() {
-	cout << "!!!Hello World from fabian!!!" << endl; // prints !!!Hello World!!!
+
+	ln<float> a;
+	float b = a.diff(0.120,5);
+	//float b = ((a.diff(0.12,1.0)-40187757.2)/40187757.2 *100);
+
+
+
+	cout << "!!!Hello World from Abraham!!!  "<<b<< endl; // prints !!!Hello World!!!
 	return 0;
 }
