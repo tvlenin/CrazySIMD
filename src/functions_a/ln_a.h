@@ -8,7 +8,6 @@
 #ifndef FUNCTIONS_A_LN_A_H_
 #define FUNCTIONS_A_LN_A_H_
 
-#include "ref.h"
 
 namespace anpi {
 //Nuestra implementación del factorial
@@ -23,7 +22,7 @@ public:
 private:
 	///Evaluación de la n−ésima derivada
 	inline T diff( const T x , const unsigned int n ){
-		T val=(factorial<T>(n-1)/pow(x,n));
+		T val=(factorial<T>(n-1))/pow(x,n);
 		if( n%1 != 1)
 			val-=val;
 		return val;
