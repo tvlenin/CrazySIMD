@@ -14,7 +14,6 @@
 class PyFacade {
 public:
 	static PyFacade* _instance;
-
 	static PyFacade* getInstance();
 
 private:
