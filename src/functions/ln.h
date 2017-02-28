@@ -7,7 +7,7 @@ template<typename T>
 T factorial ( unsigned int n){
 	T ans=1;
 	if(n!=0 || n!=1)
-		for(n;n>0;n--)
+		for(;n>0;n--)
 			ans=ans*n;
 	return ans;
 	//return n>2 ? T(1):(static_cast <T>(n)*factorial<T>(n-1));

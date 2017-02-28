@@ -14,6 +14,7 @@
 #include "ErrorFramework.h"
 #include "functions/cos.h"
 #include "functions/ln.h"
+#include "functions_a/ln_a.h"
 
 using namespace std;
 using namespace anpi;
@@ -21,13 +22,22 @@ using namespace anpi;
 
 int main() {
 
-	anpi::cos<float> a;
-	float b = a.diff(0,5);
+	//anpi::ln<float> bb;
+
+	//anpi::ln_a<float> aa;
+	//float asd = aa.diff(0,5);
 	//float b = ((a.diff(0.12,1.0)-40187757.2)/40187757.2 *100);
 
 
+	cout << "!!!Hello World from Abraham!!!  "<< endl; // prints !!!Hello World!!!
 
+	float d=0;
+	float a =1.555;
+	float b = modf(a,&d);
+	cout << "!"<<endl;
 
-	cout << "!!!Hello World from Abraham!!!  "<<b<< endl; // prints !!!Hello World!!!
+	cout<<b<<endl;
+	cout<<d<<endl;
+
 	return 0;
 }
