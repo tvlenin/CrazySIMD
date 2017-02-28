@@ -7,10 +7,13 @@
 //============================================================================
 
 #include <iostream>
-#include "true_functions/ln.h"
 #include <math.h>
 #include <string>
 #include <chrono>
+
+#include "ErrorFramework.h"
+#include "functions/cos.h"
+#include "functions/ln.h"
 
 using namespace std;
 using namespace anpi;
@@ -18,12 +21,13 @@ using namespace anpi;
 
 int main() {
 
-/*	ln<float> a;
-	float b = a.diff(0.120,5);
-	//float b = ((a.diff(0.12,1.0)-40187757.2)/40187757.2 *100);*/
+	anpi::cos<float> a;
+	float b = a.diff(0,5);
+	//float b = ((a.diff(0.12,1.0)-40187757.2)/40187757.2 *100);
 
 
 
-	cout << "!!!Hello World from Abraham!!!  "<< endl; // prints !!!Hello World!!!
+
+	cout << "!!!Hello World from Abraham!!!  "<<b<< endl; // prints !!!Hello World!!!
 	return 0;
 }
