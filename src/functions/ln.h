@@ -27,6 +27,7 @@ public :
 	inline T diff( const T x , const unsigned int n ){
 	// la  n-ésima derivada del logaritmo es (−1)ˆ(n−1)(n−1)!/xˆn
 		T val=(factorial<T>(n-1)/pow(x,n));
+		//ok
 		//verifique paridad con el último bit de n
 		//si n es par, (−1)ˆ(n−1) es −1
 		//si n es impar, ( −1)ˆ(n−1) es 1
