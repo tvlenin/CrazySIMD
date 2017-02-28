@@ -8,9 +8,8 @@
 #include "PyFacade.h"
 
 PyFacade* PyFacade::_instance = 0;
-int PyFacade::_prueba = 0;
 
-PyFacade* PyFacade::getInstance(int x){
+PyFacade* PyFacade::getInstance(){
 	if(_instance == 0){
 		_instance = new PyFacade();
 	}
