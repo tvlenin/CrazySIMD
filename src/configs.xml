@@ -2,4 +2,5 @@
 	<IP value = "192.168.0.15"/>
 	<PORT value="8888"/>
 	<N value="10">
+	<X0 value ="0.5">
 </root>

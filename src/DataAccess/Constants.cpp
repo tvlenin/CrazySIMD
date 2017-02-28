@@ -12,6 +12,7 @@ Constants* Constants::_instance=0;
 string Constants::IP;
 int Constants::PORT=0;
 int Constants::N=0;
+int Constants::X0=0;
 
 Constants* Constants::getInstance(){
 	if(_instance == 0){
@@ -31,5 +32,5 @@ Constants::Constants(){
 	IP = reader->getParameter("IP");
 	PORT = atoi(reader->getParameter("PORT"));
 	N = atoi(reader->getParameter("N"));
-
+	X0 = atoi(reader->getParameter("X0"));
 }

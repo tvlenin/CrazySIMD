@@ -34,7 +34,6 @@ public :
 			val=abs(val);
 		else
 			val=-val;
-
 		return val;
 		//return ((n%1)==0)? -val:val;
 	}

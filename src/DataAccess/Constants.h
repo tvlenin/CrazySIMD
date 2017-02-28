@@ -21,6 +21,7 @@ public:
 	static string IP;
 	static int PORT;
 	static int N;
+	static int X0;
 
 private:
 	Constants();
