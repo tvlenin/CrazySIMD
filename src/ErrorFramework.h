@@ -14,6 +14,9 @@ class ErrorFramework {
 public:
 	ErrorFramework();
 	virtual ~ErrorFramework();
+
+
+
 };
 
 } /* namespace anpi */

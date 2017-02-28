@@ -18,4 +18,7 @@ ErrorFramework::~ErrorFramework() {
 	// TODO Auto-generated destructor stub
 }
 
+
+
+
 } /* namespace anpi */
