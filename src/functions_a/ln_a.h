@@ -20,13 +20,14 @@ private:
 	T *_coef; //Coeficientes de la serie de Taylor
 	static const unsigned int _alignment=32u; //Alignment in bytes
 	T _center;
-
+	T _terms;
 	/*
 	∗Inicialice los coeficientes de la serie de Taylor centrada en center
 	∗ para el número dado de términos.
 	*/
 	void init(const T center, const unsigned int terms) {
 		_center= center;
+		_terms= terms;
 		unsigned int blocks = ((terms*sizeof(T)+(_alignment-1))/_alignment);	//Redondear hacia arriba
 		_coef = static_cast <T*>(aligned_alloc(_alignment,blocks*_alignment));
 		ln<T>logn;
@@ -37,9 +38,13 @@ private:
 	}
 public:
 
-
+	ln_a(){
+		_coef=0;
+		_center=0;
+		_terms=0;
+	}
 	/* Único constructor obliga a dar centro y número de términos de la aproximación */
-	ln_a ( const T center ,const unsigned int terms ) {
+	ln_a(const T center ,const unsigned int terms) {
 		init (center, terms) ;
 	}
 
@@ -48,6 +53,7 @@ public:
 
 
 	inline T operator()(const T val)const{
+		cout<<"asaaa\n";
 		int size=Constants::N;
 		T coefficients[size];
 		for(int i=0;i<size;i++){

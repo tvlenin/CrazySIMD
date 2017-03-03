@@ -51,10 +51,11 @@ public:
 	inline T diff_cos_a( T x , unsigned int n ){
 	// la  n-ésima derivada del coseno es
 		T val;
-		if( n%2 == 0)	//par
-			val=pow(-1,n/2+2)*std::cos(x);
-		else		    //impar
-			val=pow(-1,(n+1)/2)*std::sin(x);
+		if( n%2 == 0){	//par
+			val=pow(-1,n/2+2);
+		}else{		    //impar
+			val=0;
+		}
 		return val;
 	}
 };
