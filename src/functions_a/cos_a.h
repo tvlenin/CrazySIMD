@@ -22,6 +22,7 @@ T factorial_a ( T n){
 	if(n!=0 || n!=1)
 		for(;n>0;n--)
 			ans=ans*n;
+	//cout<<n<<"! :"<<ans<<"\n";
 	return ans;
 	//return n>2 ? T(1):(static_cast <T>(n)*factorial<T>(n-1));
 }
@@ -30,10 +31,12 @@ template<typename T>
 class cos_a {
 public:
 
+	const long double PI=3.141592653589793238;
 
-	inline T operator()(const T val)const{
-		cout<<"ok\n";
-		int size=Constants::N;
+	inline T operator()(T val)const{//Val era const
+		int size=val/(2*PI);
+		val= val-(size*2*PI);
+		size=Constants::N;
 		T x_0 = Constants::X0;
 		T coefficients[size];
 		for(int i=0;i<size;i++){
@@ -41,7 +44,7 @@ public:
 		}
 		ref* reff = new ref();
 		std::cout<<reff->EstrinPol(coefficients,val,Constants::N)<<" \n";
-		return val;
+		return reff->EstrinPol(coefficients,val,Constants::N);
 	}
 
 
