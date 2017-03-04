@@ -29,10 +29,45 @@ T factorial_a ( T n){
 
 template<typename T>
 class cos_a {
-public:
 
+private:
+	//Coeficientes de la serie de Taylor
+	T*_coef;
+	//Alignment in bytes
+	static const unsigned int _alignment=32u;
+	//Centro de la serie
+	T _center;
 	const long double PI=3.141592653589793238;
 
+	/*
+	∗Inicialice los coeficientes de la serie de Taylor centrada en _center
+	∗para el número dado de términos.
+	*/
+	void init(const T center, const unsigned int terms ){
+		_center = center;
+		//Redondear hacia arriba
+		unsigned int blocks = ((terms*sizeof(T))+(_alignment-1)/_alignment);
+		_coef = static_cast<T*>(aligned_alloc(_alignment,blocks*_alignment));
+		cos<T> logn;
+		for(unsigned int i =0; i<terms;++ i ) {
+			_coef[i] = logn.diff(center,i)/factorial<T>(i);
+		}
+	}
+
+public:
+
+	/**
+	 * Único constructor obliga dar centro y número de términos de la
+	 * aproximación
+	 */
+	cos_a(const T center, const unsigned int terms){
+		init(center,terms);
+	}
+
+	//Destructor debe liberar memoria reserveda
+	~cos_a(){free(_coef);}
+
+	//Evaluación de la función cos(x)
 	inline T operator()(T val)const{//Val era const
 		int size=val/(2*PI);
 		val= val-(size*2*PI);
@@ -47,7 +82,7 @@ public:
 		return reff->EstrinPol(coefficients,val,Constants::N);
 	}
 
-
+	//Evaluación de la n-énesima derivada
 	inline T diff_cos_a( T x , unsigned int n ){
 	// la  n-ésima derivada del coseno es
 		T val;
