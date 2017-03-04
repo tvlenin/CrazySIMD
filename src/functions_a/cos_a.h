@@ -33,7 +33,7 @@ private:
 	static const unsigned int _alignment=32u;	//Alignment in bytes
 	T _center;									//Centro de la serie
 	unsigned int _terms;
-	ref* _reff;
+	ref <T>*_reff;
 	const long double PI=3.141592653589793238;	//Valor de PI
 
 	/*Inicialice los coeficientes de la serie de Taylor centrada en _center
@@ -41,7 +41,7 @@ private:
 	void init(const T center, const unsigned int terms ){
 		_center = center;
 		_terms = terms;
-		_reff = new ref();
+		_reff = new ref<T>();
 		//Redondear hacia arriba
 		unsigned int blocks = ((terms*sizeof(T))+(_alignment-1)/_alignment);
 		_coef = static_cast<T*>(aligned_alloc(_alignment,blocks*_alignment));
