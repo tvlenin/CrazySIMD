@@ -10,6 +10,7 @@
 
 #include <math.h>
 #include <iostream>
+#include "immintrin.h"
 namespace anpi {
 
 class ref {
@@ -30,6 +31,7 @@ public:
 
 	template <class E, class E1>
 	E1 EstrinPol( E coePol, E1 x0,int size){
+
 		//std::cout<<size<<std::endl;
 
 		E1 result = 0.0;
@@ -53,6 +55,18 @@ public:
 
 
 	}
+
+	template <class P, class P1>
+	P1 EstrinOPTI( P coePol, P1 x0,int size){
+
+
+
+
+
+
+
+		}
+
 
 
 
