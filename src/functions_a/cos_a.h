@@ -22,27 +22,20 @@ T factorial_a ( T n){
 	if(n!=0 || n!=1)
 		for(;n>0;n--)
 			ans=ans*n;
-	//cout<<n<<"! :"<<ans<<"\n";
 	return ans;
-	//return n>2 ? T(1):(static_cast <T>(n)*factorial<T>(n-1));
 }
 
 template<typename T>
 class cos_a {
 
 private:
-	//Coeficientes de la serie de Taylor
-	T*_coef;
-	//Alignment in bytes
-	static const unsigned int _alignment=32u;
-	//Centro de la serie
-	T _center;
-	const long double PI=3.141592653589793238;
+	T*_coef;									//Coeficientes de la serie de Taylor
+	static const unsigned int _alignment=32u;	//Alignment in bytes
+	T _center;									//Centro de la serie
+	const long double PI=3.141592653589793238;	//Valor de PI
 
-	/*
-	∗Inicialice los coeficientes de la serie de Taylor centrada en _center
-	∗para el número dado de términos.
-	*/
+	/*Inicialice los coeficientes de la serie de Taylor centrada en _center
+	∗para el número dado de términos.*/
 	void init(const T center, const unsigned int terms ){
 		_center = center;
 		//Redondear hacia arriba
@@ -56,10 +49,8 @@ private:
 
 public:
 
-	/**
-	 * Único constructor obliga dar centro y número de términos de la
-	 * aproximación
-	 */
+	/**Único constructor obliga dar centro y número de términos de la
+	 * aproximación*/
 	cos_a(const T center, const unsigned int terms){
 		init(center,terms);
 	}
