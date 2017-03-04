@@ -23,6 +23,7 @@ public:
 	static int PORT;
 	static int N;
 	static int X0;
+	//static double PI;
 
 private:
 	Constants();

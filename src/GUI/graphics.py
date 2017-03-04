@@ -8,6 +8,7 @@ from threading import Thread
 import threading
 import time
 import matplotlib.pyplot as plt
+import ast
 ##################################
 global vPORT
 vPORT = 9090
@@ -58,6 +59,11 @@ def listen():
             data = data.decode("utf-8")
             if(data != ""):
                 print(data)
+                infoR = data.split("#")
+
+                pX = ast.literal_eval(infoR[1])
+                pY = ast.literal_eval(infoR[2])
+                createGraphic(pX,pY);
                 #manageData(data)
             #time.sleep()
     server.close()
@@ -71,7 +77,7 @@ def start_loop():
 #################################################################################
 ############################## Initial Setup ####################################
 #################################################################################
-#start_HOST()
-#start_loop()
-#listen()
-createGraphic([0,1,2,3,4,5,6], [0.3,10,0.3,1,0.2,6,0.2])
+start_HOST()
+start_loop()
+listen()
+#createGraphic([0,1,2,3,4,5,6], [0.3,10,0.3,1,0.2,6,0.2])

@@ -16,6 +16,16 @@ PyFacade* PyFacade::getInstance(){
 	return _instance;
 }
 
+
 PyFacade::PyFacade() {
+	ss = new SocketCliente();
+	string pIP = "192.168.45.106";
+	int pPort = 9090;
+
+	bool status = ss->connect(pIP.c_str(),pPort);
+	if(status)
+		cout << "Succesfully connected to: " << pIP <<":"<<pPort << endl;
+	else
+		cout << "ERROR: Could not connect to " << pIP <<":"<<pPort << endl;
 }
 
