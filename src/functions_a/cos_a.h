@@ -41,9 +41,9 @@ private:
 		//Redondear hacia arriba
 		unsigned int blocks = ((terms*sizeof(T))+(_alignment-1)/_alignment);
 		_coef = static_cast<T*>(aligned_alloc(_alignment,blocks*_alignment));
-		cos<T> logn;
+		//cos<T> logn;
 		for(unsigned int i =0; i<terms;++ i ) {
-			_coef[i] = logn.diff(center,i)/factorial<T>(i);
+			_coef[i] = diff_cos_a(center,i)/factorial<T>(i);
 		}
 	}
 
