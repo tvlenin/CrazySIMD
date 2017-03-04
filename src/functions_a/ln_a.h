@@ -70,7 +70,7 @@ public:
 	}
 
 	///Evaluación de la n−ésima derivada
-	inline T diff_ln_a( T x , int n ){
+	inline T diff( T x , int n ){
 		//cout<<"Calculando la "<<n<<"-enésima derivada, en:"<<x<<"\n";
 		if(n==0 && x==1)
 			return 0;
