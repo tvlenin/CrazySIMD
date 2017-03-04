@@ -18,7 +18,7 @@ public:
 	virtual ~ref();
 
 	template <class T, class T1>
-	T1 HornerPol(T coePol,T1 x0, int size){
+	T1 HornerPol(T* coePol,T1 x0, int size){
 		T1 result = coePol[size-1];
 		for (int i = 0; i < size-1 ; i++){
 			result += pow(x0,size-(i+1))*coePol[i];
@@ -29,7 +29,7 @@ public:
 
 
 	template <class E, class E1>
-	E1 EstrinPol( E coePol, E1 x0,int size){
+	E1 EstrinPol( E* coePol, E1 x0,int size){
 		//std::cout<<size<<std::endl;
 
 		E1 result = 0.0;

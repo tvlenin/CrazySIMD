@@ -74,7 +74,7 @@ public:
 		//cout<<"Calculando la "<<n<<"-enésima derivada, en:"<<x<<"\n";
 		if(n==0 && x==1)
 			return 0;
-		T val=(factorial_a<T>((T)n-1))/pow(x,n);
+		T val=(factorial<T>((T)n-1))/pow(x,n);
 		if( n%2 != 1)
 			val=-val;
 		//cout<<"vale: "<<val<<"\n";
