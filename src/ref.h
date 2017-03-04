@@ -12,13 +12,13 @@
 #include <iostream>
 #include "immintrin.h"
 namespace anpi {
-
+template <class T, class T1>
 class ref {
 public:
 	ref();
 	virtual ~ref();
 
-	template <class T, class T1>
+
 	T1 HornerPol(T coePol,T1 x0, int size){
 		T1 result = coePol[size-1];
 		for (int i = 0; i < size-1 ; i++){
@@ -30,7 +30,7 @@ public:
 
 
 	template <class E, class E1>
-	E1 EstrinPol( E coePol, E1 x0,int size){
+	E1 EstrinPol( E* coePol, E1 x0,int size){
 
 		//std::cout<<size<<std::endl;
 
@@ -59,15 +59,9 @@ public:
 	template <class P, class P1>
 	P1 EstrinOPTI( P coePol, P1 x0,int size){
 
-
-
-
-
-
-
 		}
 
-
+	T1 mPow (T num, int exp)
 
 
 

@@ -17,7 +17,7 @@ namespace anpi {
 
 //Implementación del factorial
 template<typename T>
-T factorial_a ( T n){
+T factorial ( T n){
 	T ans=1;
 	if(n!=0 || n!=1)
 		for(;n>0;n--)
@@ -43,7 +43,7 @@ private:
 		_coef = static_cast<T*>(aligned_alloc(_alignment,blocks*_alignment));
 		//cos<T> logn;
 		for(unsigned int i =0; i<terms;++ i ) {
-			_coef[i] = diff_cos_a(center,i)/factorial<T>(i);
+			_coef[i] = diff(center,i)/factorial<T>(i);
 		}
 	}
 
@@ -66,7 +66,7 @@ public:
 		T x_0 = Constants::X0;
 		T coefficients[size];
 		for(int i=0;i<size;i++){
-			coefficients[i]=diff_cos_a(x_0,i)/factorial_a((T)i);
+			coefficients[i]=diff(x_0,i)/factorial_a((T)i);
 		}
 		ref* reff = new ref();
 		std::cout<<reff->EstrinPol(coefficients,val,Constants::N)<<" \n";
@@ -74,7 +74,7 @@ public:
 	}
 
 	//Evaluación de la n-énesima derivada
-	inline T diff_cos_a( T x , unsigned int n ){
+	inline T diff( T x , unsigned int n ){
 	// la  n-ésima derivada del coseno es
 		T val;
 		if( n%2 == 0){	//par
