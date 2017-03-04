@@ -9,8 +9,6 @@
 #define FUNCTIONS_A_COS_A_H_
 
 #include "../ref.h"
-#include <iostream>
-#include "../DataAccess/Constants.h"
 
 using namespace std;
 namespace anpi {
@@ -50,6 +48,7 @@ private:
 	}
 
 public:
+	ref<T>* _reff = new ref<T>();
 
 	/**Único constructor obliga dar centro y número de términos de la
 	 * aproximación*/
@@ -62,7 +61,6 @@ public:
 
 	//Evaluación de la función cos(x)
 	inline T operator()(T val)const{//Val era const
-		ref<T>* _reff = new ref<T>();
 		return _reff->EstrinPol(_coef,val,_terms);
 	}
 
@@ -70,9 +68,9 @@ public:
 	inline T diff( T x , unsigned int n ){
 		T val;
 		if( n%2 == 0){	//par
-			val=pow(-1,n/2+2);
+			val=pow(-1,n/2+2)*std::cos(x);
 		}else{		    //impar
-			val=0;
+			val=pow(-1,(n+1)/2)*std::sin(x);
 		}
 		return val;
 	}
