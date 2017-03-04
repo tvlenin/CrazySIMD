@@ -12,11 +12,12 @@
 #include <iostream>
 namespace anpi {
 
-template<typename T>
+template <class T>
 class ref {
 public:
-	ref();
-	virtual ~ref();
+	ref(){};
+	virtual ~ref(){};
+
 
 	T HornerPol(T* coePol,T x0, int size){
 		T result = coePol[size-1];
@@ -27,9 +28,9 @@ public:
 	}
 
 
-	T EstrinPol( T* coePol, T x0,int size){
-		//std::cout<<size<<std::endl;
 
+	T EstrinPol(T* coePol, T x0,int size){
+		//std::cout<<size<<std::endl;
 		T result = 0.0;
 		T temp = 0;
 		for (int i = 0; i < size; i++ ){

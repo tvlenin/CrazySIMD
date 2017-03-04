@@ -17,7 +17,7 @@ namespace anpi {
 
 //Implementación del factorial
 template<typename T>
-T factorial( T n){
+T factorial_a ( T n){
 	T ans=1;
 	if(n!=0 || n!=1)
 		for(;n>0;n--)
@@ -32,8 +32,7 @@ private:
 	T*_coef;									//Coeficientes de la serie de Taylor
 	static const unsigned int _alignment=32u;	//Alignment in bytes
 	T _center;									//Centro de la serie
-	unsigned int _terms;
-	ref <T>*_reff;
+	T _terms;
 	const long double PI=3.141592653589793238;	//Valor de PI
 
 	/*Inicialice los coeficientes de la serie de Taylor centrada en _center
@@ -41,7 +40,6 @@ private:
 	void init(const T center, const unsigned int terms ){
 		_center = center;
 		_terms = terms;
-		_reff = new ref<T>();
 		//Redondear hacia arriba
 		unsigned int blocks = ((terms*sizeof(T))+(_alignment-1)/_alignment);
 		_coef = static_cast<T*>(aligned_alloc(_alignment,blocks*_alignment));
@@ -64,12 +62,12 @@ public:
 
 	//Evaluación de la función cos(x)
 	inline T operator()(T val)const{//Val era const
-		return _reff->EstrinPol(_coef,_center,_terms);
+		ref<T>* _reff = new ref<T>();
+		return _reff->EstrinPol(_coef,val,_terms);
 	}
 
 	//Evaluación de la n-énesima derivada
 	inline T diff( T x , unsigned int n ){
-	// la  n-ésima derivada del coseno es
 		T val;
 		if( n%2 == 0){	//par
 			val=pow(-1,n/2+2);
