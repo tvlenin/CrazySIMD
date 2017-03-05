@@ -32,7 +32,6 @@ public:
 
 
 	T EstrinPol(T* coePol, T x0,int size){
-		//std::cout<<size<<std::endl;
 		T result = 0.0;
 		T temp = 0;
 		for (int i = 0; i < size; i++ ){
@@ -40,11 +39,12 @@ public:
 				temp += coePol[i];
 			}
 			else if((i+1)%2 == 0){
-				result += (temp +coePol[i]*x0) * pow(x0,i-1);
+				//result += (temp +coePol[i]*x0) * pow(x0,i-1);
+				result += (temp +coePol[i]*x0) * std::exp((i-1)*std::log(x0));
 				temp = 0;
 			}
 			else if((i+1)%2 == 1 && (i == size-1)){
-				result += (temp +coePol[i]*x0) * pow(x0,i-1);
+				result += (temp +coePol[i]*x0) * std::exp((i-1)*std::log(x0));
 			}
 		}
 		return result;
