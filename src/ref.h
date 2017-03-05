@@ -10,6 +10,7 @@
 
 #include <math.h>
 #include <iostream>
+#include "immintrin.h"
 namespace anpi {
 
 template <class T>
@@ -29,9 +30,19 @@ public:
 
 
 
+<<<<<<< HEAD
 	T EstrinPol(T* coePol, T x0,int size){
 		T result = 0.0;
 		T temp = 0;
+=======
+	template <class E, class E1>
+	E1 EstrinPol( E coePol, E1 x0,int size){
+
+		//std::cout<<size<<std::endl;
+
+		E1 result = 0.0;
+		E1 temp = 0;
+>>>>>>> a5555daecff1d3237e71b02a9707c8aa7aa879ed
 		for (int i = 0; i < size; i++ ){
 			if((i+1)%2 == 1 && (i != size-1)){
 				temp += coePol[i];
@@ -52,6 +63,18 @@ public:
 
 
 	}
+
+	template <class P, class P1>
+	P1 EstrinOPTI( P coePol, P1 x0,int size){
+
+
+
+
+
+
+
+		}
+
 
 
 
