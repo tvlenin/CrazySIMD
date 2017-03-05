@@ -8,7 +8,7 @@
 #ifndef SRC_REF_H_
 #define SRC_REF_H_
 
-#include <math.h>
+#include <cmath>
 #include <iostream>
 namespace anpi {
 

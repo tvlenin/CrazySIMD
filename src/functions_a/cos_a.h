@@ -8,6 +8,7 @@
 #ifndef FUNCTIONS_A_COS_A_H_
 #define FUNCTIONS_A_COS_A_H_
 
+#include <cmath>
 #include "../ref.h"
 
 namespace anpi {
