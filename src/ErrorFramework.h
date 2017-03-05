@@ -39,7 +39,8 @@ public:
 		auto end = chrono::high_resolution_clock::now();
 		auto ms = chrono::duration_cast<chrono::milliseconds>(end-start).count();
 
-		cout<< static_cast<double>(ms)/numTests << "ms"<<endl;
+		cout<< "Relative Error: " << getAverageError(pRefFunction(pX),pFunction(pX)) << endl;
+		cout<< "Elapsed Time: " << static_cast<double>(ms)/numTests << "ms"<<endl;
 	}
 };
 

@@ -8,43 +8,68 @@
 #ifndef FUNCTIONS_A_LN_A_H_
 #define FUNCTIONS_A_LN_A_H_
 
-#include "ref.h"
-
+#include "../ref.h"
 namespace anpi {
+
+
 //Nuestra implementación del factorial
 template<typename T>
 class ln_a {
-public:
-
-	inline T operator()(const T val)const{
-		return val;
-	}
 
 private:
+	T *_coef; //Coeficientes de la serie de Taylor
+	static const unsigned int _alignment=32u; //Alignment in bytes
+	T _center;
+	T _terms;
+
+	/*
+	∗Inicialice los coeficientes de la serie de Taylor centrada en center
+	∗ para el número dado de términos.
+	*/
+	void init(const T center, const unsigned int terms) {
+		_center= center;
+		_terms= terms;
+		unsigned int blocks = ((terms*sizeof(T)+(_alignment-1))/_alignment);	//Redondear hacia arriba
+		_coef = static_cast <T*>(aligned_alloc(_alignment,blocks*_alignment));
+		for(unsigned int i =0; i<terms; ++i){
+			_coef[i]=diff(center,i)/factorial<T>(i);
+		}
+	}
+public:
+
+
+	/* Único constructor obliga a dar centro y número de términos de la aproximación */
+	ln_a(const T center ,const unsigned int terms) {
+		init (center, terms) ;
+	}
+
+	///Destructor debe liberar memoria reservada
+	~ln_a(){free(_coef);}
+
+
+	inline T operator()(const T val)const{
+		ref<T>* reff = new ref<T>();
+		return reff->EstrinPol(_coef,val-_center,_terms);
+	}
+
 	///Evaluación de la n−ésima derivada
-	inline T diff( const T x , const unsigned int n ){
-		T val=(factorial<T>(n-1)/pow(x,n));
-		if( n%1 != 1)
-			val-=val;
-		return val;
+	inline T diff( T x , int n ){
+		if(n==0){
+			return std::log(x);
+		}else{
+			T val=(factorial<T>((T)n-1))/pow(x,n);
+			if( n%2 != 1)
+				val=-val;
+			return val;}
 		//return ((n%1)==0)? -val:val;
 	}
 
-	//Calcular n!
-	inline T factorial ( unsigned int n){
-		T ans=1;
-		if(n!=0 || n!=1)
-			for(;n>0;n--)
-				ans=ans*n;
-		return ans;
-		//return n>2 ? T(1):(static_cast <T>(n)*factorial<T>(n-1));
-	}
 
-	//Por optimizar
-
-//	inline T potencias(T x, T n){}
 
 };
+
+
+
 
 } /* namespace anpi */
 
