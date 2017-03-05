@@ -19,7 +19,7 @@ PyFacade* PyFacade::getInstance(){
 
 PyFacade::PyFacade() {
 	ss = new SocketCliente();
-	string pIP = "192.168.45.106";
+	string pIP = "192.168.0.13";
 	int pPort = 9090;
 
 	bool status = ss->connect(pIP.c_str(),pPort);
