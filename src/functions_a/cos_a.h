@@ -12,8 +12,6 @@
 #include "../ref.h"
 
 namespace anpi {
-//namespace opt{
-
 
 
 //Implementación del factorial
