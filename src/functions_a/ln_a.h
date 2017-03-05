@@ -57,8 +57,8 @@ public:
 	///Evaluación de la n−ésima derivada
 	inline T diff( T x , int n ){
 		//cout<<"Calculando la "<<n<<"-enésima derivada, en:"<<x<<"\n";
-		if(n==0 && x==1)
-			return 0;
+		if(n==0)
+			return std::log(x);
 		T val=(factorial<T>((T)n-1))/pow(x,n);
 		if( n%2 != 1)
 			val=-val;

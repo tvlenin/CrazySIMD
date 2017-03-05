@@ -61,7 +61,7 @@ public:
 
 	//Evaluación de la función cos(x)
 	inline T operator()(T val)const{//Val era const
-		return _reff->EstrinPol(_coef,val,_terms);
+		return _reff->EstrinPol(_coef,val-_center,_terms);
 	}
 
 	//Evaluación de la n-énesima derivada
