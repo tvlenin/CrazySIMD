@@ -15,7 +15,7 @@ namespace anpi {
 
 //Implementación del factorial
 template<typename T>
-T factorial_a ( T n){
+T factorial ( T n){
 	T ans=1;
 	if(n!=0 || n!=1)
 		for(;n>0;n--)
@@ -61,6 +61,9 @@ public:
 
 	//Evaluación de la función cos(x)
 	inline T operator()(T val)const{//Val era const
+		int times=val/(2*PI);
+		cout<<"times:"<< times<<"\n";
+		val= val-(times*2*PI);
 		return _reff->EstrinPol(_coef,val-_center,_terms);
 	}
 
