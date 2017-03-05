@@ -31,10 +31,8 @@ private:
 		_terms= terms;
 		unsigned int blocks = ((terms*sizeof(T)+(_alignment-1))/_alignment);	//Redondear hacia arriba
 		_coef = static_cast <T*>(aligned_alloc(_alignment,blocks*_alignment));
-		ln<T>logn;
 		for(unsigned int i =0; i<terms; ++i){
-			_coef[i]=logn.diff(center,i)/factorial<T>(i);
-
+			_coef[i]=diff(center,i)/factorial<T>(i);
 		}
 	}
 public:
@@ -51,19 +49,18 @@ public:
 
 	inline T operator()(const T val)const{
 		ref<T>* reff = new ref<T>();
-		return reff->EstrinPol(_coef,val,_terms);
+		return reff->EstrinPol(_coef,val-_center,_terms);
 	}
 
 	///Evaluación de la n−ésima derivada
 	inline T diff( T x , int n ){
-		//cout<<"Calculando la "<<n<<"-enésima derivada, en:"<<x<<"\n";
-		if(n==0)
+		if(n==0){
 			return std::log(x);
-		T val=(factorial<T>((T)n-1))/pow(x,n);
-		if( n%2 != 1)
-			val=-val;
-		//cout<<"vale: "<<val<<"\n";
-		return val;
+		}else{
+			T val=(factorial<T>((T)n-1))/pow(x,n);
+			if( n%2 != 1)
+				val=-val;
+			return val;}
 		//return ((n%1)==0)? -val:val;
 	}
 
