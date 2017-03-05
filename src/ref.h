@@ -13,14 +13,17 @@
 #include "immintrin.h"
 namespace anpi {
 
+
+template <class T>
 class ref {
 public:
-	ref();
-	virtual ~ref();
+	ref(){};
+	virtual ~ref(){};
 
-	template <class T, class T1>
-	T1 HornerPol(T coePol,T1 x0, int size){
-		T1 result = coePol[size-1];
+
+
+	T HornerPol(T coePol,T x0, int size){
+		T result = coePol[size-1];
 		for (int i = 0; i < size-1 ; i++){
 			result += pow(x0,size-(i+1))*coePol[i];
 		}
@@ -28,14 +31,10 @@ public:
 	}
 
 
-
-	template <class E, class E1>
-	E1 EstrinPol( E* coePol, E1 x0,int size){
-
+	T EstrinPol(T* coePol, T x0,int size){
 		//std::cout<<size<<std::endl;
-
-		E1 result = 0.0;
-		E1 temp = 0;
+		T result = 0.0;
+		T temp = 0;
 		for (int i = 0; i < size; i++ ){
 			if((i+1)%2 == 1 && (i != size-1)){
 				temp += coePol[i];
@@ -56,10 +55,25 @@ public:
 
 	}
 
-	template <class P, class P1>
-	P1 EstrinOPTI( P coePol, P1 x0,int size){
 
+
+	T mPow(T data, int num){
+		__m256d a = {data,data,data,data};
+		__m256d result = {data,data,data,data};
+		//double exp[];
+
+		result = _mm256_mul_pd(result,a);
+		for (int j = 0 ; j < 8 ;j++){
+			result = _mm256_mul_pd(result,a);
 		}
+
+
+		double res = 1.0;
+		for (int i = 0; i < 4; i++){
+			res *= result[i];
+		}
+		return res;
+	}
 
 	//T1 mPow (T num, int exp)
 
