@@ -30,7 +30,6 @@ public:
 
 
 	T EstrinPol(T* coePol, T x0,int size){
-		//std::cout<<size<<std::endl;
 		T result = 0.0;
 		T temp = 0;
 		for (int i = 0; i < size; i++ ){
