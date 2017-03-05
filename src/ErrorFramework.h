@@ -58,7 +58,8 @@ public:
 		PyFacade* xx = PyFacade::getInstance();
 
 		if(pFunctionMode == 0){
-			anpi::cos_a<double> pFunction(pCenter,pCoeffQuantity);
+			anpi::cos_a<dataType> pFunction(pCenter,pCoeffQuantity);
+			anpi::cos<dataType> pRefFunction(pCenter,pCoeffQuantity);
 
 			int iMax = pEndRange / pH;
 
@@ -71,7 +72,7 @@ public:
 			for(int i = 0; i < iMax; i++){
 
 				dataType yValue = pFunction(valueX);
-				dataType yRefValue = std::cos(valueX);
+				dataType yRefValue = pRefFunction(valueX);
 
 				yValues.setArray(i,yValue);
 				yRefValues.setArray(i,yRefValue);
