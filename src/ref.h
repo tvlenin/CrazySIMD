@@ -9,6 +9,7 @@
 #define SRC_REF_H_
 
 #include <math.h>
+//#include <cmath>
 #include <iostream>
 #include "immintrin.h"
 namespace anpi {
@@ -60,20 +61,26 @@ public:
 	T mPow(T data, int num){
 		__m256d a = {data,data,data,data};
 		__m256d result = {data,data,data,data};
-		//double exp[];
+		a =  _mm256_mul_pd(a,result);
+		result = _mm256_mul_pd(a,result);
+		double expo[num/2];
 
-		result = _mm256_mul_pd(result,a);
-		for (int j = 0 ; j < 8 ;j++){
+		for(int i = 0; i < (num/2);i++ ){
+			expo[i] = result[0];
 			result = _mm256_mul_pd(result,a);
+
 		}
 
 
-		double res = 1.0;
-		for (int i = 0; i < 4; i++){
-			res *= result[i];
-		}
-		return res;
 	}
+	T inPow(T data, int num){
+		double expo[num/2];
+		int cont=0;
+		for (int i=2; i<num;i += 2){
+			expo[cont] = std::pow(data,i);
+			cont++;
+			}
+		}
 
 	//T1 mPow (T num, int exp)
 
