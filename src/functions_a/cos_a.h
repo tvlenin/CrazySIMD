@@ -10,8 +10,10 @@
 
 #include "../ref.h"
 
-using namespace std;
 namespace anpi {
+//namespace opt{
+
+
 
 //Implementación del factorial
 template<typename T>
@@ -62,7 +64,6 @@ public:
 	//Evaluación de la función cos(x)
 	inline T operator()(T val)const{//Val era const
 		int times=val/(2*PI);
-		cout<<"times:"<< times<<"\n";
 		val= val-(times*2*PI);
 		return _reff->EstrinPol(_coef,val-_center,_terms);
 	}
@@ -78,7 +79,7 @@ public:
 		return val;
 	}
 };
-
+//}/* namespace opt */
 } /* namespace anpi */
 
 #endif /* FUNCTIONS_A_COS_A_H_ */

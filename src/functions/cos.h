@@ -12,6 +12,7 @@
 
 namespace anpi {
 
+namespace reff{
 template<typename T>
 class cos{
 public:
@@ -31,7 +32,7 @@ public:
 		return val;
 	}
 };
-
+}/* namespace ref */
 } /* namespace anpi */
 
 #endif /* FUNCTIONS_COS_H_ */

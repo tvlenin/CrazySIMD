@@ -46,11 +46,6 @@ public:
 			}
 		}
 		return result;
-
-
-
-
-
 	}
 
 
