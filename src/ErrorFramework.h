@@ -26,10 +26,10 @@ namespace anpi {
 class ErrorFramework {
 public:
 	ErrorFramework(){
-
+		system("python src/graphics.py &");
+		usleep(3000000);
 	}
 	virtual ~ErrorFramework(){
-
 	}
 
 	template <typename dataType>
@@ -73,7 +73,31 @@ public:
 				}
 				auto end = chrono::high_resolution_clock::now();
 				auto ms = chrono::duration_cast<chrono::nanoseconds>(end-start).count();
+				cout << "Last Result " << result <<endl;
+				cout << "Num Coeff " << i+2 << ": "<<static_cast<dataType>(ms)/numTests << endl;
+				y1Values.setArray(i,static_cast<dataType>(ms)/numTests);
+				xValues.setArray(i,i+2);
+			}
 
+			xx->create2DPlotTime("Time (ns)",xValues,y1Values);
+		}
+
+		else if(pFunctionMode == 1){
+			xArray<dataType> xValues(pCoeffQuantity);
+			xArray<dataType> y1Values(pCoeffQuantity);
+
+			dataType result;
+
+			for(int i = 1; i < pCoeffQuantity; i++){
+				anpi::ln_a<dataType> pFunction(pCenter,i+2);
+
+				auto start = chrono::high_resolution_clock::now();
+				for(int i = 0; i < numTests; i++){
+					result = pFunction(pX);
+				}
+				auto end = chrono::high_resolution_clock::now();
+				auto ms = chrono::duration_cast<chrono::nanoseconds>(end-start).count();
+				cout << "Last Result " << result <<endl;
 				cout << "Num Coeff " << i+2 << ": "<<static_cast<dataType>(ms)/numTests << endl;
 				y1Values.setArray(i,static_cast<dataType>(ms)/numTests);
 				xValues.setArray(i,i+2);

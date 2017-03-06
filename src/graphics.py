@@ -9,15 +9,31 @@ import threading
 import time
 import matplotlib.pyplot as plt
 import ast
+from xml.dom import minidom
+import os
 ##################################
-global vPORT
-vPORT = 9090
 
+def loadXMLParameters():
+    global vPORT
+    ruta=os.getcwd()
+    rutaFinal=str(ruta)+"/configs.xml"
+    print(rutaFinal)
+
+    xmlDoc = minidom.parse(rutaFinal)
+
+    pPort = xmlDoc.getElementsByTagName('PORT')
+    load_PORT=pPort[0].attributes['value'].value
+    vPORT = int(load_PORT)
+
+    print("PUERTO: " +str(vPORT))
+    
 #############################################################################
 ################################# Graphics ##################################
 #############################################################################
 def createGraphic(pLabel,x, y, xRef,yRef):
-    fig, ax1 = plt.subplots()
+    fig = plt.figure(0)
+    ax1 = fig.add_subplot(111)
+    #fig, ax1 = plt.subplots()
     ax1.plot(x,y,'b-')
     ax1.set_xlabel('h')  
     ax1.set_ylabel(pLabel, color='b')
@@ -33,7 +49,9 @@ def createGraphic(pLabel,x, y, xRef,yRef):
     plt.show()
 
 def createGraphicTime(pLabel,x,y):
-    fig, ax1 = plt.subplots()
+    #fig, ax1 = plt.subplots()
+    fig = plt.figure(1)
+    ax1 = fig.add_subplot(111)
     ax1.plot(x,y,'b-')
     ax1.set_xlabel('Coeff Quantity')  
     ax1.set_ylabel(pLabel, color='b')
@@ -43,7 +61,9 @@ def createGraphicTime(pLabel,x,y):
     plt.show()
 
 def createGraphicError(pLabel,x, y1,y2,y3,y4,y5):
-    fig, ax1 = plt.subplots()
+    fig = plt.figure(2)
+    ax1 = fig.add_subplot(111)
+    #fig, ax1 = plt.subplots()
     ax1.plot(x,y1,'b-')
     ax1.set_xlabel('h')  
     ax1.set_ylabel(pLabel, color='b')
@@ -94,7 +114,7 @@ def start_HOST():
         retry_HOST()
 
     server.listen(10)
-    print("Now Listening")
+    print("Plotter waiting...")
     
 def listen():
     while True:
@@ -136,7 +156,8 @@ def start_loop():
 #################################################################################
 ############################## Initial Setup ####################################
 #################################################################################
+loadXMLParameters()
 start_HOST()
 start_loop()
 listen()
-#createGraphic([0,1,2,3,4,5,6], [0.3,10,0.3,1,0.2,6,0.2])
+

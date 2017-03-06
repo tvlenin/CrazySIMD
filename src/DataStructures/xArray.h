@@ -34,7 +34,6 @@ public:
 			cout << setw( 7 ) << j << setw( 13 ) << myarray[ j ]
 			<< " type: " << typeid(myarray[ j ]).name() << endl;
 		}
-		cout << "-----------------------------" << endl;
 	}
 
 };
