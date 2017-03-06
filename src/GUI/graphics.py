@@ -16,15 +16,19 @@ vPORT = 9090
 #############################################################################
 ################################# Graphics ##################################
 #############################################################################
-def createGraphic(xArrayValues, yArrayValues):
+def createGraphic(x, y, xRef,yRef):
     fig, ax1 = plt.subplots()
-    ax1.plot(xArrayValues,yArrayValues,'b-')
-    ax1.set_xlabel('time (s)')
-    
-    ax1.set_ylabel('exp', color='b')
+    ax1.plot(x,y,'b-')
+    ax1.set_xlabel('time (s)')  
+    ax1.set_ylabel('cos', color='b')
     ax1.tick_params('y', colors='b')
-
-
+    
+    ax2 = ax1.twinx()
+    ax2.plot(xRef, yRef, 'r-')
+    ax2.set_ylabel('cos Ref', color='r')
+    ax2.tick_params('y', colors='r')
+    
+    
     fig.tight_layout()
     plt.show()
 
@@ -63,7 +67,8 @@ def listen():
 
                 pX = ast.literal_eval(infoR[1])
                 pY = ast.literal_eval(infoR[2])
-                createGraphic(pX,pY);
+                pYRef = ast.literal_eval(infoR[3])
+                createGraphic(pX,pY,pX,pYRef);
                 #manageData(data)
             #time.sleep()
     server.close()

@@ -8,10 +8,12 @@
 #ifndef FUNCTIONS_A_COS_A_H_
 #define FUNCTIONS_A_COS_A_H_
 
+#include <cmath>
 #include "../ref.h"
+#include "../opt.h"
 
-using namespace std;
 namespace anpi {
+
 
 //Implementación del factorial
 template<typename T>
@@ -50,7 +52,7 @@ private:
 
 public:
 	ref<T>* _reff = new ref<T>();
-
+	opt<T>* _optt = new opt<T>();
 
 
 	/**Único constructor obliga dar centro y número de términos de la
@@ -64,9 +66,10 @@ public:
 
 	//Evaluación de la función cos(x)
 	inline T operator()(T val)const{//Val era const
-
-		return _reff->EstrinPol(_coef,val-_center,_terms);
-
+		int times=val/(2*PI);
+		val= val-(times*2*PI);
+		//return _reff->EstrinPol(_coef,val-_center,_terms);
+		return _optt->EstrinPol(_coef,val-_center,_terms);
 	}
 
 	//Evaluación de la n-énesima derivada
@@ -80,7 +83,7 @@ public:
 		return val;
 	}
 };
-
+//}/* namespace opt */
 } /* namespace anpi */
 
 #endif /* FUNCTIONS_A_COS_A_H_ */

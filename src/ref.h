@@ -8,8 +8,12 @@
 #ifndef SRC_REF_H_
 #define SRC_REF_H_
 
+
 #include <math.h>
-//#include <cmath>
+
+
+#include <cmath>
+
 #include <iostream>
 #include "immintrin.h"
 namespace anpi {
@@ -32,6 +36,7 @@ public:
 	}
 
 
+
 	T EstrinPol(T* coePol, T x0,int size){
 		T result = 0.0;
 		T temp = 0;
@@ -49,23 +54,23 @@ public:
 			}
 		}
 		return result;
-
-
-
-
-
 	}
 
 
 
 	T mPow(T data, int num){
+		//cout<<"************************************"<<endl;
 		__m256d a = {data,data,data,data};
 		__m256d result = {data,data,data,data};
-		a =  _mm256_mul_pd(a,result);
 		result = _mm256_mul_pd(a,result);
+		a =  _mm256_mul_pd(a,a);
+
 		double expo[num/2];
 
 		for(int i = 0; i < (num/2);i++ ){
+			//cout<<"i:     "<<i<<endl;
+			//cout<<result[0]<<"\n";
+			//cout<<a[0]<<"\n";
 			expo[i] = result[0];
 			result = _mm256_mul_pd(result,a);
 

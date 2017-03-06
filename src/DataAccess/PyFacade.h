@@ -23,14 +23,16 @@ public:
 	static PyFacade* getInstance();
 
 	template<class T>
-	bool create2DPlot(xArray<T> pX, xArray<T> pY){
+	bool create2DPlot(xArray<T> pX, xArray<T> pY, xArray<T> pYRef){
 		if(pX.getSize() == pY.getSize()){
 			ostringstream pX_List;
 			ostringstream pY_List;
+			ostringstream pYRef_List;
 			//s << i;
 
 			pX_List << "[";
 			pY_List << "[";
+			pYRef_List << "[";
 
 			for(int i = 0; i < pX.getSize(); i++){
 				pX_List << pX.getItem(i) ;
@@ -48,13 +50,25 @@ public:
 				}
 			}
 
-			pY_List << "]";
+			for(int i = 0; i < pYRef.getSize(); i++){
+				pYRef_List << pYRef.getItem(i) ;
+
+				if(i+1 != pYRef.getSize()){
+					pYRef_List << ",";
+				}
+			}
+
 			pX_List << "]";
+			pY_List << "]";
+			pYRef_List << "]";
 
-			cout << pX_List.str() << endl;
-			cout << pY_List.str() << endl;
+			//cout << pX_List.str() << endl;
+			//cout << pY_List.str() << endl;
 
-			string sendData = "plot2D#" + pX_List.str() + "#" + pY_List.str() +"#";
+			string sendData = "plot2D#" +
+								pX_List.str() + "#" +
+								pY_List.str() + "#" +
+								pYRef_List.str() +"#";
 
 			ss->sendMessage(sendData.c_str());
 
