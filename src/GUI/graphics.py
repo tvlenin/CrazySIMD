@@ -19,7 +19,7 @@ vPORT = 9090
 def createGraphic(pLabel,x, y, xRef,yRef):
     fig, ax1 = plt.subplots()
     ax1.plot(x,y,'b-')
-    ax1.set_xlabel('time (s)')  
+    ax1.set_xlabel('h')  
     ax1.set_ylabel(pLabel, color='b')
     ax1.tick_params('y', colors='b')
     
@@ -32,38 +32,43 @@ def createGraphic(pLabel,x, y, xRef,yRef):
     fig.tight_layout()
     plt.show()
 
+def createGraphicTime(pLabel,x,y):
+    fig, ax1 = plt.subplots()
+    ax1.plot(x,y,'b-')
+    ax1.set_xlabel('Coeff Quantity')  
+    ax1.set_ylabel(pLabel, color='b')
+    ax1.tick_params('y', colors='b')
+    
+    fig.tight_layout()
+    plt.show()
+
 def createGraphicError(pLabel,x, y1,y2,y3,y4,y5):
     fig, ax1 = plt.subplots()
     ax1.plot(x,y1,'b-')
-    ax1.set_xlabel('time (s)')  
+    ax1.set_xlabel('h')  
     ax1.set_ylabel(pLabel, color='b')
     ax1.tick_params('y', colors='b')
     
     ax2 = ax1.twinx()
-    ax2.plot(x, y1, 'r-')
+    ax2.plot(x, y2, 'r-')
     ax2.set_ylabel(pLabel + ' Ref', color='r')
     ax2.tick_params('y', colors='r')
 
     ax3 = ax1.twinx()
-    ax3.plot(x, y2, 'r-')
+    ax3.plot(x, y3, 'g-')
     ax3.set_ylabel(pLabel + ' Ref', color='r')
     ax3.tick_params('y', colors='r')
 
     ax4 = ax1.twinx()
-    ax4.plot(x, y3, 'r-')
+    ax4.plot(x, y4, 'y-')
     ax4.set_ylabel(pLabel + ' Ref', color='r')
     ax4.tick_params('y', colors='r')
 
     ax5 = ax1.twinx()
-    ax5.plot(x, y4, 'r-')
+    ax5.plot(x, y5, 'm-')
     ax5.set_ylabel(pLabel + ' Ref', color='r')
     ax5.tick_params('y', colors='r')
 
-    ax6 = ax1.twinx()
-    ax6.plot(x, y5, 'r-')
-    ax6.set_ylabel(pLabel + ' Ref', color='r')
-    ax6.tick_params('y', colors='r')
-    
     
     fig.tight_layout()
     plt.show()
@@ -108,12 +113,17 @@ def listen():
                 elif(infoR[0] == "EvsH"):
                     pX = ast.literal_eval(infoR[2])
                     pY1 = ast.literal_eval(infoR[3])
-                    pY2 = ast.literal_eval(infoR[3])
-                    pY3 = ast.literal_eval(infoR[3])
-                    pY4 = ast.literal_eval(infoR[3])
-                    pY5 = ast.literal_eval(infoR[3])
-                    
+                    pY2 = ast.literal_eval(infoR[4])
+                    pY3 = ast.literal_eval(infoR[5])
+                    pY4 = ast.literal_eval(infoR[6])
+                    pY5 = ast.literal_eval(infoR[7])
                     createGraphicError(infoR[1],pX,pY1,pY2,pY3,pY4,pY5);
+                elif(infoR[0] == "TvsH"):
+                    pX = ast.literal_eval(infoR[2])
+                    pY = ast.literal_eval(infoR[3])
+                    createGraphicTime(infoR[1],pX,pY);
+                    
+                    
             #time.sleep()
     server.close()
 

@@ -34,7 +34,7 @@ public:
 
 	template <typename dataType>
 	dataType getAverageError(dataType trueValue, dataType aproxValue){
-		dataType result = (trueValue - aproxValue)/(trueValue) *100;
+		dataType result = abs((trueValue - aproxValue)/(trueValue)) *100;
 		return result;
 	}
 
@@ -55,11 +55,39 @@ public:
 	}
 
 	template<class dataType>
-	void graphRelativeError(int pFunctionMode, double pH, int pCoeffQuantity, int pCenter,
-			  	  	  	  	dataType pInitRange, dataType pEndRange){
+	void graphTime(int pFunctionMode, double pH, int pCenter, int pCoeffQuantity,int numTests, dataType pX){
 		PyFacade* xx = PyFacade::getInstance();
 
-		int nInit = pCoeffQuantity - 5;
+		if(pFunctionMode == 0){
+			xArray<dataType> xValues(pCoeffQuantity);
+			xArray<dataType> y1Values(pCoeffQuantity);
+
+			dataType result;
+
+			for(int i = 1; i < pCoeffQuantity; i++){
+				anpi::cos_a<dataType> pFunction(pCenter,i+2);
+
+				auto start = chrono::high_resolution_clock::now();
+				for(int i = 0; i < numTests; i++){
+					result = pFunction(pX);
+				}
+				auto end = chrono::high_resolution_clock::now();
+				auto ms = chrono::duration_cast<chrono::nanoseconds>(end-start).count();
+
+				cout << "Num Coeff " << i+2 << ": "<<static_cast<dataType>(ms)/numTests << endl;
+				y1Values.setArray(i,static_cast<dataType>(ms)/numTests);
+				xValues.setArray(i,i+2);
+			}
+
+			xx->create2DPlotTime("Time (ns)",xValues,y1Values);
+		}
+
+	}
+
+	template<class dataType>
+	void graphRelativeError(int pFunctionMode, double pH, int pCenter,
+			  	  	  	  	dataType pInitRange, dataType pEndRange){
+		PyFacade* xx = PyFacade::getInstance();
 
 		if(pFunctionMode == 0){
 			int iMax = pEndRange / pH;
@@ -71,15 +99,18 @@ public:
 			xArray<dataType> y4Values(iMax);
 			xArray<dataType> y5Values(iMax);
 
-			for(int n = nInit; n < pCoeffQuantity; n++ ){
+			int coeffValues[5] = {3,5,7,9,11};
 
-				anpi::cos_a<dataType> pFunction(pCenter,n);
-				anpi::cos<dataType> pRefFunction(pCenter,n);
+			//int coeffValues[5] = {20,20,20,20,20};
+
+			for(int n = 0; n < 5; n++ ){
+
+				cout << "N: --> " << n << endl;
+
+				anpi::cos_a<dataType> pFunction(pCenter,coeffValues[n]);
+				anpi::cos<dataType> pRefFunction(pCenter,coeffValues[n]);
 
 				double valueX = pInitRange;
-
-
-
 
 				for(int i = 0; i < iMax; i++){
 					dataType yValue = pFunction(valueX);
@@ -87,25 +118,79 @@ public:
 
 					dataType currentErrorPercent = getAverageError(yRefValue,yValue);
 
+					cout << "COS("<<valueX<<"): " << yRefValue << " | COS_A: " << yValue << endl;
+					cout << "% Error" << currentErrorPercent << endl;
 
-					if( (n - nInit) == 0)
+					if(n == 0)
 						y1Values.setArray(i,currentErrorPercent);
-					if( (n - nInit) == 1)
+					if(n == 1)
 						y2Values.setArray(i,currentErrorPercent);
-					if( (n - nInit) == 2)
+					if(n == 2)
 						y3Values.setArray(i,currentErrorPercent);
-					if( (n - nInit) == 3)
+					if(n == 3)
 						y4Values.setArray(i,currentErrorPercent);
-					if( (n - nInit) == 4)
+					if(n == 4)
 						y5Values.setArray(i,currentErrorPercent);
 
-					xValues.setArray(i,valueX);
+					xValues.setArray(i,valueX-pCenter);
 					valueX+=pH;
 				}
 
 			}
 
-			xx->create2DPlotError("cos",xValues,y1Values,y2Values,y3Values,y4Values,y5Values);
+			xx->create2DPlotError("% Error",xValues,y1Values,y2Values,y3Values,y4Values,y5Values);
+
+		}
+		else if(pFunctionMode == 1){
+			int iMax = pEndRange / pH;
+
+			xArray<dataType> xValues(iMax);
+			xArray<dataType> y1Values(iMax);
+			xArray<dataType> y2Values(iMax);
+			xArray<dataType> y3Values(iMax);
+			xArray<dataType> y4Values(iMax);
+			xArray<dataType> y5Values(iMax);
+
+			int coeffValues[5] = {3,5,7,9,11};
+
+			//int coeffValues[5] = {20,20,20,20,20};
+
+			for(int n = 0; n < 5; n++ ){
+
+				cout << "N: --> " << n << endl;
+
+				anpi::ln_a<dataType> pFunction(pCenter,coeffValues[n]);
+				anpi::ln<dataType> pRefFunction(pCenter,coeffValues[n]);
+
+				double valueX = pInitRange;
+
+				for(int i = 0; i < iMax; i++){
+					dataType yValue = pFunction(valueX);
+					dataType yRefValue = pRefFunction(valueX);
+
+					dataType currentErrorPercent = getAverageError(yRefValue,yValue);
+
+					cout << "LN("<<valueX<<"): " << yRefValue << " | LN_A: " << yValue << endl;
+					cout << "% Error" << currentErrorPercent << endl;
+
+					if(n == 0)
+						y1Values.setArray(i,currentErrorPercent);
+					if(n == 1)
+						y2Values.setArray(i,currentErrorPercent);
+					if(n == 2)
+						y3Values.setArray(i,currentErrorPercent);
+					if(n == 3)
+						y4Values.setArray(i,currentErrorPercent);
+					if(n == 4)
+						y5Values.setArray(i,currentErrorPercent);
+
+					xValues.setArray(i,valueX-pCenter);
+					valueX+=pH;
+				}
+
+			}
+
+			xx->create2DPlotError("% Error",xValues,y1Values,y2Values,y3Values,y4Values,y5Values);
 
 		}
 	}
