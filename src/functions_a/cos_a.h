@@ -42,9 +42,12 @@ private:
 		//Redondear hacia arriba
 		unsigned int blocks = ((terms*sizeof(T))+(_alignment-1)/_alignment);
 		_coef = static_cast<T*>(aligned_alloc(_alignment,blocks*_alignment));
-		//cos<T> logn;
+		T tmp_coef;
 		for(unsigned int i =0; i<terms;++ i ) {
-			_coef[i] = diff(center,i)/factorial<T>(i);
+			tmp_coef = diff(center,i)/factorial<T>(i);
+			if(tmp_coef!=tmp_coef)
+				break;
+			_coef[i]=tmp_coef;
 		}
 	}
 
