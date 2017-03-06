@@ -20,37 +20,39 @@ class opt {
 
 private:
 
-	int cont = 0;
-	int cont1 = 0;
-	int cont2 = 0;
-	double result = 0.0;
+//	int cont = 0;
+//	int cont1 = 0;
+//	int cont2 = 0;
+	//double result;
 
 public:
 	opt(){};
 	virtual ~opt(){};
 
 	T EstrinPol(T* coePol, T x0,int size){
+		int cont = 0;
+		int cont1 = 0;
+		int cont2 = 0;
+		int contp = 0;
+		double result = 0;
+		double powV = x0;
+
 		//cout<<(size/4)+1<<"\n";
 		__m256d impar[(size/4)+1];
 		__m256d par[(size/4)+1];
 		__m256d xValue = {x0,x0,x0,x0};
-		__m256d powP[2];
-		powP[0][0] = pow(x0,0);
-		powP[0][1] = pow(x0,2);
-		powP[0][2] = pow(x0,4);
-		powP[0][3] = pow(x0,6);
-		powP[1][0] = pow(x0,8);
-		powP[1][1] = pow(x0,10);
-		powP[1][2] = pow(x0,12);
-		powP[1][3] = pow(x0,14);
-		//powP[2][0] = pow(x0,16);
-		//powP[2][1] = pow(x0,18);
-		//powP[2][2] = pow(x0,20);
-		//powP[2][3] = pow(x0,22);
-		//powP[3][0] = pow(x0,24);
-		//powP[3][1] = pow(x0,26);
-		//powP[3][2] = pow(x0,28);
-		//powP[3][3] = pow(x0,30);
+		__m256d powP[(size/2)+1];
+		//powP[0][0] = 0;
+		for (int p = 0;p < size;p++){
+			//cout<<"p: "<<p<<endl;
+			powV *= x0;
+			//cout<<"powV: "<<powV<<endl;
+			if ((p+1)%8 == 0){cont++;contp += 4;}
+			if (p == 0){powP[0][0] = 0;powV=x0;}
+			if (p == 1){powV=x0;}
+			if (p%2==0 && p != 0){powP[cont][p-(p/2)-contp] = powV;}
+		}
+
 		cont =0;
 		for (int i = 0; i < size; i++){
 			if ((i+1)%8 == 0){cont++;cont1 += 4;cont2 += 4;}
@@ -60,7 +62,7 @@ public:
 		for (int k = 0; k < (size/4)+1; k++){//sumar impar con par y guarda en impar
 			//impar[k] = _mm256_mul_pd(impar[k],xValue);
 			par[k] = _mm256_add_pd(impar[k],par[k]);
-			par[k] = _mm256_mul_pd(powP[k],par[k]);
+			par[k] = _mm256_mul_pd(powP[k],_mm256_add_pd(impar[k],par[k]));
 
 		}
 		cont = 0;
