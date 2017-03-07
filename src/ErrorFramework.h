@@ -129,7 +129,7 @@ public:
 
 			for(int n = 0; n < 5; n++ ){
 
-				cout << "N: --> " << n << endl;
+				cout << "N: --> " << coeffValues[n] << endl;
 
 				anpi::cos_a<dataType> pFunction(pCenter,coeffValues[n]);
 				anpi::cos<dataType> pRefFunction(pCenter,coeffValues[n]);

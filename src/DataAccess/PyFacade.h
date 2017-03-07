@@ -183,7 +183,7 @@ public:
 			pX_List << "[";
 			pY_List << "[";
 
-			for(int i = 0; i < pX.getSize(); i++){
+			for(int i = 1; i < pX.getSize(); i++){
 				pX_List << pX.getItem(i) ;
 
 				if(i+1 != pX.getSize()){
@@ -191,7 +191,7 @@ public:
 				}
 			}
 
-			for(int i = 0; i < pY.getSize(); i++){
+			for(int i = 1; i < pY.getSize(); i++){
 				pY_List << pY.getItem(i) ;
 
 				if(i+1 != pY.getSize()){
