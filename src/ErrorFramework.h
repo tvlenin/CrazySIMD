@@ -228,7 +228,7 @@ public:
 			anpi::cos_a<dataType> pFunction(pCenter,pCoeffQuantity);
 			anpi::cos<dataType> pRefFunction(pCenter,pCoeffQuantity);
 
-			int iMax = pEndRange / pH;
+			int iMax = (pEndRange - pInitRange) / pH;
 
 			xArray<dataType> yValues(iMax);
 			xArray<dataType> xValues(iMax);
@@ -256,7 +256,7 @@ public:
 			anpi::ln_a<dataType> pFunction(pCenter,pCoeffQuantity);
 			anpi::ln<dataType> pRefFunction(pCenter,pCoeffQuantity);
 
-			int iMax = pEndRange / pH;
+			int iMax = (pEndRange - pInitRange) / pH;
 
 			xArray<dataType> yValues(iMax);
 			xArray<dataType> xValues(iMax);
@@ -266,11 +266,8 @@ public:
 			double valueX = pInitRange;
 			for(int i = 0; i < iMax; i++){
 
-				//dataType yValue = pFunction(valueX);
-				//dataType yRefValue = pRefFunction(valueX);
-
-				dataType yValue = std::log(valueX);
-				dataType yRefValue = std::log(valueX);
+				dataType yValue = pFunction(valueX);
+				dataType yRefValue = pRefFunction(valueX);
 
 				yValues.setArray(i,yValue);
 				yRefValues.setArray(i,yRefValue);
