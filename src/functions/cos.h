@@ -1,5 +1,5 @@
 /*
- * cos.h
+ * cos_a.h
  *
  *  Created on: Feb 28, 2017
  *      Author: abrahamon
@@ -8,11 +8,13 @@
 #ifndef FUNCTIONS_A_COS_H_
 #define FUNCTIONS_A_COS_H_
 
-#include "../ref.h"
-#include "../functions_a/cos_a.h"
 #include <cmath>
+#include "../ref.h"
 
 namespace anpi {
+
+
+
 
 template<typename T>
 class cos{
@@ -27,15 +29,15 @@ private:
 	/*Inicialice los coeficientes de la serie de Taylor centrada en _center
 	∗para el número dado de términos.*/
 	void init(const T center, const unsigned int terms ){
-		_center = center;
-		_terms = terms;
-		//Redondear hacia arriba
-		unsigned int blocks = ((terms*sizeof(T))+(_alignment-1)/_alignment);
-		_coef = static_cast<T*>(aligned_alloc(_alignment,blocks*_alignment));
-		//cos<T> logn;
-		for(unsigned int i =0; i<terms;++ i ) {
-			_coef[i] = diff(center,i)/factorial<T>(i);
-		}
+//		_center = center;
+//		_terms = terms;
+//		//Redondear hacia arriba
+//		unsigned int blocks = ((terms*sizeof(T))+(_alignment-1)/_alignment);
+//		_coef = static_cast<T*>(aligned_alloc(_alignment,blocks*_alignment));
+//		//cos<T> logn;
+//		for(unsigned int i =0; i<terms;++ i ) {
+//			_coef[i] = diff(center,i)/factorial<T>(i);
+//		}
 	}
 
 public:
@@ -52,9 +54,7 @@ public:
 
 	//Evaluación de la función cos(x)
 	inline T operator()(T val)const{//Val era const
-		int times=val/(2*PI);
-		val= val-(times*2*PI);
-		return _reff->EstrinPol(_coef,val-_center,_terms);
+		return std::cos(val);
 	}
 
 	//Evaluación de la n-énesima derivada
@@ -68,7 +68,6 @@ public:
 		return val;
 	}
 };
-
 } /* namespace anpi */
 
-#endif /* FUNCTIONS_A_COS_H_ */
+#endif /* FUNCTIONS_A_COS_A_H_ */

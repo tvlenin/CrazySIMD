@@ -10,10 +10,9 @@
 
 #include <cmath>
 #include "../ref.h"
+#include "../opt.h"
 
 namespace anpi {
-//namespace opt{
-
 
 
 //Implementación del factorial
@@ -41,6 +40,7 @@ private:
 	void init(const T center, const unsigned int terms ){
 		_center = center;
 		_terms = terms;
+
 		//Redondear hacia arriba
 		unsigned int blocks = ((terms*sizeof(T))+(_alignment-1)/_alignment);
 		_coef = static_cast<T*>(aligned_alloc(_alignment,blocks*_alignment));
@@ -52,6 +52,8 @@ private:
 
 public:
 	ref<T>* _reff = new ref<T>();
+	opt<T>* _optt = new opt<T>();
+
 
 	/**Único constructor obliga dar centro y número de términos de la
 	 * aproximación*/
@@ -66,7 +68,8 @@ public:
 	inline T operator()(T val)const{//Val era const
 		int times=val/(2*PI);
 		val= val-(times*2*PI);
-		return _reff->EstrinPol(_coef,val-_center,_terms);
+		//return _reff->EstrinPol(_coef,val-_center,_terms);
+	    return _optt->EstrinPol(_coef,val-_center,_terms);
 	}
 
 	//Evaluación de la n-énesima derivada
