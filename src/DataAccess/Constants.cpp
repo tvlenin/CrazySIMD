@@ -27,7 +27,7 @@ Constants::Constants(){
 	//XML Reader
 	srand(time(0));
 	XMLReader* reader = new XMLReader();
-	reader->loadXMLFile("src/configs.xml");
+	reader->loadXMLFile("configs.xml");
 
 	//General Constants
 	//PI=3.141592653589793238;
