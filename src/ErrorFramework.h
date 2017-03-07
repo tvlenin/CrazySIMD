@@ -30,6 +30,7 @@ public:
 		usleep(3000000);
 	}
 	virtual ~ErrorFramework(){
+
 	}
 
 	template <typename dataType>
