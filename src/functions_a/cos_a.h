@@ -69,7 +69,7 @@ public:
 		int times=val/(2*PI);
 		val= val-(times*2*PI);
 		//return _reff->EstrinPol(_coef,val-_center,_terms);
-		return _optt->EstrinPol(_coef,val-_center,_terms);
+	    return _optt->EstrinPol(_coef,val-_center,_terms);
 	}
 
 	//Evaluación de la n-énesima derivada

@@ -25,7 +25,8 @@ public:
 	ref(){};
 	virtual ~ref(){};
 
-
+/*Horner algorithm to evaluate polymonials
+ * */
 
 	T HornerPol(T coePol,T x0, int size){
 		T result = coePol[size-1];
@@ -36,7 +37,10 @@ public:
 	}
 
 
-
+/*
+ * Estrin Scheme without SIMD optimization
+ *
+ * */
 	T EstrinPol(T* coePol, T x0,int size){
 		T result = 0.0;
 		T temp = 0;
@@ -45,7 +49,6 @@ public:
 				temp += coePol[i];
 			}
 			else if((i+1)%2 == 0){
-				//result += (temp +coePol[i]*x0) * pow(x0,i-1);
 				result += (temp +coePol[i]*x0) * std::exp((i-1)*std::log(x0));
 				temp = 0;
 			}
@@ -57,9 +60,11 @@ public:
 	}
 
 
-
+	/*
+	 * Try to get the power numbers of a number with
+	 * SIMD instructions
+	 * */
 	T mPow(T data, int num){
-		//cout<<"************************************"<<endl;
 		__m256d a = {data,data,data,data};
 		__m256d result = {data,data,data,data};
 		result = _mm256_mul_pd(a,result);
@@ -68,9 +73,7 @@ public:
 		double expo[num/2];
 
 		for(int i = 0; i < (num/2);i++ ){
-			//cout<<"i:     "<<i<<endl;
-			//cout<<result[0]<<"\n";
-			//cout<<a[0]<<"\n";
+
 			expo[i] = result[0];
 			result = _mm256_mul_pd(result,a);
 
@@ -78,16 +81,7 @@ public:
 
 
 	}
-	T inPow(T data, int num){
-		double expo[num/2];
-		int cont=0;
-		for (int i=2; i<num;i += 2){
-			expo[cont] = std::pow(data,i);
-			cont++;
-			}
-		}
 
-	//T1 mPow (T num, int exp)
 
 
 
