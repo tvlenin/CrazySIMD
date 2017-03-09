@@ -25,9 +25,12 @@ namespace anpi {
 
 class ErrorFramework {
 public:
-	ErrorFramework(){
-		system("python src/graphics.py &");
-		usleep(3000000);
+	ErrorFramework(int mode){
+		if(mode == 1){
+			system("python src/graphics.py &");
+			usleep(3000000);
+		}
+
 	}
 	virtual ~ErrorFramework(){
 
@@ -42,17 +45,21 @@ public:
 	template<class fType, class fRefType, class dataType>
 	void testFunction(fRefType pRefFunction, fType pFunction, dataType pX, const int numTests){
 		dataType result;
-		dataType step = (2.f-pX)/numTests;
+		//dataType step = (2.f-pX)/numTests;
+
+		dataType refResult = pRefFunction(pX);
 
 		auto start = chrono::high_resolution_clock::now();
-		for(int i = 0; i < numTests; i++, pX+=step){
+		for(int i = 0; i < numTests; i++){
 			result = pFunction(pX);
 		}
 		auto end = chrono::high_resolution_clock::now();
-		auto ms = chrono::duration_cast<chrono::milliseconds>(end-start).count();
+		auto ms = chrono::duration_cast<chrono::nanoseconds>(end-start).count();
 
 		cout<< "Relative Error: " << getAverageError(pRefFunction(pX),pFunction(pX)) << endl;
-		cout<< "Elapsed Time: " << static_cast<double>(ms)/numTests << "ms"<<endl;
+		cout<< "Elapsed Time: " << static_cast<double>(ms)/numTests << "ns"<<endl;
+		cout<< "Reference Result: " << refResult << endl;
+		cout<< "Aprox Result: " << result << endl;
 	}
 
 	template<class dataType>

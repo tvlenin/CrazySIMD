@@ -1,6 +1,6 @@
 <root>
-	<IP value = "192.168.0.13"/>
-	<PORT value="9094"/>
+	<IP value = "192.168.45.106"/>
+	<PORT value="9091"/>
 	<N value="25"/>
 	<X0 value ="1"/>
 </root>
