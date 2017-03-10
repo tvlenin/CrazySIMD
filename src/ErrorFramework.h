@@ -78,9 +78,8 @@ public:
 				anpi::cos_a<dataType> pFunction(pCenter,i+2);
 
 				auto start = chrono::high_resolution_clock::now();
-				for(int i = 0; i < numTests; i++){
+				for(int i = 0; i < numTests; i++,pX+=0.1){
 					result = pFunction(pX);
-					pX+=0.1;
 				}
 				auto end = chrono::high_resolution_clock::now();
 				auto ms = chrono::duration_cast<chrono::nanoseconds>(end-start).count();
@@ -103,7 +102,7 @@ public:
 				anpi::ln_a<dataType> pFunction(pCenter,i+2);
 
 				auto start = chrono::high_resolution_clock::now();
-				for(int i = 0; i < numTests; i++){
+				for(int i = 0; i < numTests; i++,pX+=0.1){
 					result = pFunction(pX);
 				}
 				auto end = chrono::high_resolution_clock::now();
