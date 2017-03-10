@@ -44,19 +44,21 @@ public:
 
 	template<class fType, class fRefType, class dataType>
 	void testFunction(fRefType pRefFunction, fType pFunction, dataType pX, const int numTests){
-		dataType result;
-		//dataType step = (2.f-pX)/numTests;
-
+		dataType result = pFunction(pX);
 		dataType refResult = pRefFunction(pX);
 
+		dataType tempResult;
+		dataType d = (pX)/numTests;
+
 		auto start = chrono::high_resolution_clock::now();
-		for(int i = 0; i < numTests; i++){
-			result = pFunction(pX);
+		for(int i = 0; i < numTests; i++,pX+=d){
+			tempResult = pFunction(pX);
 		}
+		cout<<"Final Temp Result: "<< tempResult << endl;
 		auto end = chrono::high_resolution_clock::now();
 		auto ms = chrono::duration_cast<chrono::nanoseconds>(end-start).count();
 
-		cout<< "Relative Error: " << getAverageError(pRefFunction(pX),pFunction(pX)) << endl;
+		cout<< "Relative Error: " << getAverageError(refResult,result) << endl;
 		cout<< "Elapsed Time: " << static_cast<double>(ms)/numTests << "ns"<<endl;
 		cout<< "Reference Result: " << refResult << endl;
 		cout<< "Aprox Result: " << result << endl;
@@ -78,6 +80,7 @@ public:
 				auto start = chrono::high_resolution_clock::now();
 				for(int i = 0; i < numTests; i++){
 					result = pFunction(pX);
+					pX+=0.1;
 				}
 				auto end = chrono::high_resolution_clock::now();
 				auto ms = chrono::duration_cast<chrono::nanoseconds>(end-start).count();
@@ -236,7 +239,7 @@ public:
 			anpi::cos_a<dataType> pFunction(pCenter,pCoeffQuantity);
 			anpi::cos<dataType> pRefFunction(pCenter,pCoeffQuantity);
 
-			int iMax = (pEndRange - pInitRange) / pH;
+			int iMax = (pEndRange) / pH;
 
 			xArray<dataType> yValues(iMax);
 			xArray<dataType> xValues(iMax);

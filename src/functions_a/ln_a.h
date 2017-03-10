@@ -9,6 +9,8 @@
 #define FUNCTIONS_A_LN_A_H_
 
 #include "../ref.h"
+#include "../DataAccess/Constants.h"
+
 namespace anpi {
 
 
@@ -36,7 +38,8 @@ private:
 		}
 	}
 public:
-
+	opt<T>* _optt = new opt<T>();
+	ref<T>* _reff = new ref<T>();
 
 	/* Único constructor obliga a dar centro y número de términos de la aproximación */
 	ln_a(const T center ,const unsigned int terms) {
@@ -48,8 +51,10 @@ public:
 
 
 	inline T operator()(const T val)const{
-		ref<T>* reff = new ref<T>();
-		return reff->EstrinPol(_coef,val-_center,_terms);
+		if(Constants::Optt == 0)
+			return _reff->EstrinPol(_coef,val-_center,_terms);
+		else if(Constants::Optt == 1)
+			return _optt->EstrinPol(_coef,val-_center,_terms);
 	}
 
 	///Evaluación de la n−ésima derivada

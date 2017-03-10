@@ -11,6 +11,7 @@
 #include <cmath>
 #include "../ref.h"
 #include "../opt.h"
+#include "../DataAccess/Constants.h"
 
 namespace anpi {
 
@@ -68,8 +69,10 @@ public:
 	inline T operator()(T val)const{//Val era const
 		int times=val/(2*PI);
 		val= val-(times*2*PI);
-		return _reff->EstrinPol(_coef,val-_center,_terms);
-	    //return _optt->EstrinPol(_coef,val-_center,_terms);
+		if(Constants::Optt == 0)
+			return _reff->EstrinPol(_coef,val-_center,_terms);
+		else if(Constants::Optt == 1)
+			return _optt->EstrinPol(_coef,val-_center,_terms);
 	}
 
 	//Evaluación de la n-énesima derivada

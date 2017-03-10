@@ -13,6 +13,7 @@ string Constants::IP;
 int Constants::PORT = 0;
 int Constants::N = 0;
 int Constants::X0 = 0;
+int Constants::Optt = 0;
 //long double Constants::PI = 0;
 
 Constants* Constants::getInstance(){
@@ -35,4 +36,5 @@ Constants::Constants(){
 	PORT = atoi(reader->getParameter("PORT"));
 	N = atoi(reader->getParameter("N"));
 	X0 = atoi(reader->getParameter("X0"));
+	Optt = atoi(reader->getParameter("Optt"));
 }
