@@ -134,7 +134,7 @@ public:
 			xArray<dataType> y4Values(iMax);
 			xArray<dataType> y5Values(iMax);
 
-			int coeffValues[5] = {3,5,7,9,11};
+			int coeffValues[5] = {3,5,7,25,30};
 
 			//int coeffValues[5] = {20,20,20,20,20};
 
@@ -172,7 +172,7 @@ public:
 				}
 
 			}
-
+			cout<<"GRAPH "<<endl;
 			xx->create2DPlotError("% Error",xValues,y1Values,y2Values,y3Values,y4Values,y5Values);
 
 		}

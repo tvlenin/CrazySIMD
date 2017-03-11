@@ -11,7 +11,6 @@
 #include <cmath>
 #include "../ref.h"
 #include "../opt.h"
-#include "../DataAccess/Constants.h"
 
 namespace anpi {
 
@@ -45,13 +44,8 @@ private:
 		//Redondear hacia arriba
 		unsigned int blocks = ((terms*sizeof(T))+(_alignment-1)/_alignment);
 		_coef = static_cast<T*>(aligned_alloc(_alignment,blocks*_alignment));
-<<<<<<< HEAD
-		for(int i = 0; i < _terms; i++){
-			_coef[i] = 0;
-=======
 		for(int i=0;i<_terms;i++){
 			_coef[i]=0;
->>>>>>> bf8fc8adf46cc13f39c5b4fe7c4a01a0e13b2482
 		}
 		for(unsigned int i =0; i<terms;++ i ) {
 			tmp= diff(center,i)/factorial<T>(i);
@@ -82,10 +76,8 @@ public:
 	inline T operator()(T val)const{//Val era const
 		int times=val/(2*PI);
 		val= val-(times*2*PI);
-		if(Constants::Optt == 0)
-			return _reff->EstrinPol(_coef,val-_center,_terms);
-		else if(Constants::Optt == 1)
-			return _optt->EstrinPol(_coef,val-_center,_terms);
+		//return _reff->EstrinPol(_coef,val-_center,_terms);
+	    return _optt->EstrinPol(_coef,val-_center,_terms);
 	}
 
 	//Evaluación de la n-énesima derivada

@@ -75,11 +75,7 @@ public:
 			cont = 0;
 			cont1 = 0;
 			//Add all the terms
-<<<<<<< HEAD
-			double result = 1;
-=======
 			double result = 0;
->>>>>>> bf8fc8adf46cc13f39c5b4fe7c4a01a0e13b2482
 			for (int m = 0; m < (size/4)+4; m++){
 				if ((m+1)%4 == 0 ){cont++;cont1 += 4;}
 				if(par[cont][m-cont1]!=par[cont][m- cont1]){break;}
@@ -123,11 +119,7 @@ public:
 					cont = 0;
 					cont1 = 0;
 					//Add all the terms
-<<<<<<< HEAD
-					double result = 1;
-=======
 					double result = 0;
->>>>>>> bf8fc8adf46cc13f39c5b4fe7c4a01a0e13b2482
 					for (int m = 0; m < (size/8)+8; m++){
 						if ((m+1)%8 == 0 ){cont++;cont1 += 8;}
 						//if(par[cont][m-cont1]!=par[cont][m-cont1]){break;}
