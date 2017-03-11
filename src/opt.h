@@ -69,7 +69,7 @@ public:
 			cont1 = 0;
 			//Add all the terms
 			double result = 1;
-			for (int m = 0; m < (size/4); m++){
+			for (int m = 0; m < (size/4)+4; m++){
 				if ((m+1)%4 == 0 ){cont++;cont1 += 4;}
 				if(par[cont][m-cont1]!=par[cont][m-cont1]){break;}
 				result += par[cont][m-cont1];
@@ -112,7 +112,7 @@ public:
 					cont1 = 0;
 					//Add all the terms
 					double result = 1;
-					for (int m = 0; m < (size/8); m++){
+					for (int m = 0; m < (size/8)+8; m++){
 						if ((m+1)%8 == 0 ){cont++;cont1 += 8;}
 						if(par[cont][m-cont1]!=par[cont][m-cont1]){break;}
 						result += par[cont][m-cont1];

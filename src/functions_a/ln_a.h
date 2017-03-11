@@ -33,6 +33,9 @@ private:
 		_terms= terms;
 		unsigned int blocks = ((terms*sizeof(T)+(_alignment-1))/_alignment);	//Redondear hacia arriba
 		_coef = static_cast <T*>(aligned_alloc(_alignment,blocks*_alignment));
+		for(int i = 0; i < _terms; i++){
+			_coef[i] = 0;
+		}
 		for(unsigned int i =0; i<terms; ++i){
 			_coef[i]=diff(center,i)/factorial<T>(i);
 		}

@@ -73,22 +73,23 @@ public:
 			xArray<dataType> y1Values(pCoeffQuantity);
 
 			dataType result;
+			dataType tempPX = pX;
 
-			for(int i = 1; i < pCoeffQuantity; i++){
-				anpi::cos_a<dataType> pFunction(pCenter,i+2);
+			for(int i = 1; i <= pCoeffQuantity; i++){
+				anpi::cos_a<dataType> pFunction(pCenter,i);
 
+				tempPX = pX;
 				auto start = chrono::high_resolution_clock::now();
-				for(int i = 0; i < numTests; i++,pX+=0.1){
-					result = pFunction(pX);
+				for(int j = 0; j < numTests; j++,tempPX+=0.1){
+					result = pFunction(tempPX);
 				}
 				auto end = chrono::high_resolution_clock::now();
 				auto ms = chrono::duration_cast<chrono::nanoseconds>(end-start).count();
 				cout << "Last Result " << result <<endl;
-				cout << "Num Coeff " << i+2 << ": "<<static_cast<dataType>(ms)/numTests << endl;
-				y1Values.setArray(i,static_cast<dataType>(ms)/numTests);
-				xValues.setArray(i,i+2);
+				cout << "Num Coeff " << i << ": "<< static_cast<dataType>(ms)/numTests << " ns"<< endl;
+				y1Values.setArray(i-1,static_cast<dataType>(ms)/numTests);
+				xValues.setArray(i-1,i);
 			}
-
 			xx->create2DPlotTime("Time (ns)",xValues,y1Values);
 		}
 
@@ -98,8 +99,8 @@ public:
 
 			dataType result;
 
-			for(int i = 1; i < pCoeffQuantity; i++){
-				anpi::ln_a<dataType> pFunction(pCenter,i+2);
+			for(int i = 1; i <= pCoeffQuantity; i++){
+				anpi::ln_a<dataType> pFunction(pCenter,i);
 
 				auto start = chrono::high_resolution_clock::now();
 				for(int i = 0; i < numTests; i++,pX+=0.1){
@@ -108,9 +109,9 @@ public:
 				auto end = chrono::high_resolution_clock::now();
 				auto ms = chrono::duration_cast<chrono::nanoseconds>(end-start).count();
 				cout << "Last Result " << result <<endl;
-				cout << "Num Coeff " << i+2 << ": "<<static_cast<dataType>(ms)/numTests << endl;
-				y1Values.setArray(i,static_cast<dataType>(ms)/numTests);
-				xValues.setArray(i,i+2);
+				cout << "Num Coeff " << i << ": "<<static_cast<dataType>(ms)/numTests << endl;
+				y1Values.setArray(i-1,static_cast<dataType>(ms)/numTests);
+				xValues.setArray(i-1,i);
 			}
 
 			xx->create2DPlotTime("Time (ns)",xValues,y1Values);
@@ -185,7 +186,7 @@ public:
 			xArray<dataType> y4Values(iMax);
 			xArray<dataType> y5Values(iMax);
 
-			int coeffValues[5] = {3,5,7,9,11};
+			int coeffValues[5] = {1,2,3,4,5};
 
 			//int coeffValues[5] = {20,20,20,20,20};
 
