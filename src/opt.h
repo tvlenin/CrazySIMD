@@ -28,21 +28,26 @@ public:
 	virtual ~opt(){};
 
 	T EstrinPol(T* coePol, T x0, int const size1){
+
 		int size = size1;
 		int cont = 0;
 		int cont1 = 0;
 		int cont2 = 0;
 		int contp = 0;
-		double prueba = 0;
+		float prueba = 0;
 		if (typeid(T).name()== typeid(prueba).name() ){
 			double powV = x0;
+			//cout<<x0<<endl;
 			__m256d impar[(size/8)+1];
 			__m256d par[(size/8)+1];
 			__m256d powP[(size/16)+1];
 			/*power numbers of x0, that is more efficient than std::pow()
 			 *because dont need calculate again the coefficients
 			 */
+
+
 			for (int p = 0;p < size;p++){
+
 				powV *= x0;
 				if ((p+1)%8 == 0){cont++;contp += 4;}
 				if (p == 0){powP[0][0] = 0;powV=x0;}
@@ -58,20 +63,22 @@ public:
 				if ((i+1)%8 == 0){cont++;cont1 += 4;cont2 += 4;}
 				if (i%2==0){par[cont][i-cont1] = coePol[i];cont1++;}
 				if (i%2!=0){impar[cont][i-1-cont2] = coePol[i]*x0;cont2++;}//More efficient use *X0 and not SIMD
+
 			}
 			/*
 			 * multiply and add the __m256d Arrays
 			 * */
+			 powP[0][0]=1;
 			for (int k = 0; k < (size/4)+4; k++){
 				par[k] = _mm256_mul_pd(powP[k],_mm256_add_pd(impar[k],par[k]));
 			}
 			cont = 0;
 			cont1 = 0;
 			//Add all the terms
-			double result = 1;
-			for (int m = 0; m < (size/4); m++){
+			double result = 0;
+			for (int m = 0; m < (size/4)+4; m++){
 				if ((m+1)%4 == 0 ){cont++;cont1 += 4;}
-				if(par[cont][m-cont1]!=par[cont][m-cont1]){break;}
+				if(par[cont][m-cont1]!=par[cont][m- cont1]){break;}
 				result += par[cont][m-cont1];
 			}
 			//cout<<result<<"\n";
@@ -105,16 +112,17 @@ public:
 					/*
 					 * multiply and add the __m256d Arrays
 					 * */
+					 powP[0][0]=1;
 					for (int k = 0; k < (size/8)+8; k++){
 						par[k] = _mm256_mul_ps(powP[k],_mm256_add_ps(impar[k],par[k]));
 					}
 					cont = 0;
 					cont1 = 0;
 					//Add all the terms
-					double result = 1;
-					for (int m = 0; m < (size/8); m++){
+					double result = 0;
+					for (int m = 0; m < (size/8)+8; m++){
 						if ((m+1)%8 == 0 ){cont++;cont1 += 8;}
-						if(par[cont][m-cont1]!=par[cont][m-cont1]){break;}
+						//if(par[cont][m-cont1]!=par[cont][m-cont1]){break;}
 						result += par[cont][m-cont1];
 					}
 					//cout<<result<<"\n";

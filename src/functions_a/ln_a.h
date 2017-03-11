@@ -9,6 +9,8 @@
 #define FUNCTIONS_A_LN_A_H_
 
 #include "../ref.h"
+#include "../opt.h"
+
 namespace anpi {
 
 
@@ -29,13 +31,26 @@ private:
 	void init(const T center, const unsigned int terms) {
 		_center= center;
 		_terms= terms;
+		T tmp;
 		unsigned int blocks = ((terms*sizeof(T)+(_alignment-1))/_alignment);	//Redondear hacia arriba
 		_coef = static_cast <T*>(aligned_alloc(_alignment,blocks*_alignment));
-		for(unsigned int i =0; i<terms; ++i){
-			_coef[i]=diff(center,i)/factorial<T>(i);
+		for(int i=0;i<_terms;i++){
+			_coef[i]=0;
 		}
+		for(unsigned int i =0; i<terms; ++i){
+			tmp=diff(center,i)/factorial<T>(i);
+			if(tmp!=tmp){
+				cout<<"nan alert in coef calc!\n";
+				break;
+			}else{
+				_coef[i]=tmp;
+			}
+		}
+
 	}
 public:
+	ref<T>* reff = new ref<T>();
+	opt<T>* optt = new opt<T>();
 
 
 	/* Único constructor obliga a dar centro y número de términos de la aproximación */
@@ -48,8 +63,8 @@ public:
 
 
 	inline T operator()(const T val)const{
-		ref<T>* reff = new ref<T>();
-		return reff->EstrinPol(_coef,val-_center,_terms);
+		//return reff->EstrinPol(_coef,val-_center,_terms);
+		return optt->EstrinPol(_coef,val-_center,_terms);
 	}
 
 	///Evaluación de la n−ésima derivada

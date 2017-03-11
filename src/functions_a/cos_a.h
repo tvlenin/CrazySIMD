@@ -40,13 +40,21 @@ private:
 	void init(const T center, const unsigned int terms ){
 		_center = center;
 		_terms = terms;
-
+		T tmp;
 		//Redondear hacia arriba
 		unsigned int blocks = ((terms*sizeof(T))+(_alignment-1)/_alignment);
 		_coef = static_cast<T*>(aligned_alloc(_alignment,blocks*_alignment));
-		//cos<T> logn;
+		for(int i=0;i<_terms;i++){
+			_coef[i]=0;
+		}
 		for(unsigned int i =0; i<terms;++ i ) {
-			_coef[i] = diff(center,i)/factorial<T>(i);
+			tmp= diff(center,i)/factorial<T>(i);
+			if(tmp!=tmp){
+				cout<<"nan alert in coef calc!\n";
+				break;
+			}else{
+				_coef[i]=tmp;
+			}
 		}
 	}
 
